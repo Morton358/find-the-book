@@ -1,0 +1,26 @@
+{
+    "defaultSeverity": "error",
+    "extends": [
+        "tslint:recommended",
+        "tslint-config-standard",
+        "tslint-react",
+        "tslint-config-prettier",
+        "tslint-react-hooks",
+        "tslint-sonarts"
+    ],
+    "jsRules": {"max-line-length": {
+            "options": [120]
+        }},
+    "rules": {
+        "prettier": true,
+        "ordered-imports": false,
+        "object-literal-sort-keys": false,
+        "member-ordering": false,
+        "jsx-no-lambda": false,
+        "jsx-boolean-value": false,
+        "react-hooks-nesting": "error"
+    },
+    "rulesDirectory": [
+        "tslint-plugin-prettier"
+    ]
+}
