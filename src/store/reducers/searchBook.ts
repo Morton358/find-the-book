@@ -1,4 +1,7 @@
-import { SearchActionTypes, SearchBookState, SearchSuccessAction, SearchFailedAction } from './../../types'
+// @ts-ignore
+import 'map.prototype.tojson'
+
+import { SearchActionTypes, SearchBookState, SearchSuccessAction, SearchFailedAction, Book } from './../../types'
 import * as actionTypes from './../actions/actionTypes'
 import { updateSearchBookState, cloneObj } from '../../share/utility'
 
@@ -16,15 +19,16 @@ const searchBookStart = (state: SearchBookState): SearchBookState => {
 }
 
 const searchBookSuccess = (state: SearchBookState, action: SearchSuccessAction): SearchBookState => {
-  const arrOfBooks: Book[] = []
+  console.log('searchBook reducer -> searchBookSuccess -> action.data: ', action.data)
+  const mapOfBooks: Map<number, Book> = new Map()
   action.data.docs.forEach((book: Book) => {
-    arrOfBooks.push(cloneObj(book))
+    mapOfBooks.set(book.cover_i, cloneObj(book))
   })
 
   return updateSearchBookState(state, {
     count: action.data.numFound,
-    byId: action.data.docs,
-    allIds: action.data.booksId,
+    byId: mapOfBooks,
+    allIds: Array.from(mapOfBooks.keys()),
     error: null,
     errorOccured: false,
     loading: false,

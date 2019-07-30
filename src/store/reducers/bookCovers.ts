@@ -6,3 +6,9 @@ const initialState: BookCoversState = {
   errorOccured: false,
   loading: false,
 }
+
+const reducer = (state = initialState): BookCoversState => {
+  return state
+}
+
+export default reducer

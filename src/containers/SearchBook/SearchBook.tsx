@@ -4,7 +4,7 @@ import { faMicrophone } from '@fortawesome/free-solid-svg-icons'
 import { connect } from 'react-redux'
 
 import * as actions from '../../store/actions'
-import { SearchBookProps, SearchBookState } from '../../types'
+import { SearchBookProps, RootState } from '../../types'
 
 const SearchBook: React.FC<SearchBookProps> = (props: SearchBookProps) => {
   const [searchQuery, setSearchQuery] = useState('')
@@ -19,7 +19,6 @@ const SearchBook: React.FC<SearchBookProps> = (props: SearchBookProps) => {
             aria-label="search for"
             aria-describedby="search for input"
             value={searchQuery}
-            disabled={searchQuery === undefined || searchQuery.length <= 1 }
             onChange={(e: any) => setSearchQuery(e.target.value)}
           />
           <div className="input-group-append">
@@ -31,7 +30,12 @@ const SearchBook: React.FC<SearchBookProps> = (props: SearchBookProps) => {
       </div>
       <div className="col-auto">
         {' '}
-        <button type="button" className="btn btn-primary btn-lg" onClick={() => props.onSearch(searchQuery)}>
+        <button
+          type="button"
+          className="btn btn-primary btn-lg"
+          disabled={searchQuery === undefined || searchQuery.length <= 1}
+          onClick={() => props.onSearch(searchQuery)}
+        >
           Search
         </button>{' '}
       </div>
@@ -39,8 +43,10 @@ const SearchBook: React.FC<SearchBookProps> = (props: SearchBookProps) => {
   )
 }
 
-const mapStateToProps = (state: SearchBookState) => {
-  return {}
+const mapStateToProps = (state: RootState) => {
+  return {
+    countOfBooks: state.books.count,
+  }
 }
 
 const mapDispatchToProps = (dispatch: any) => {

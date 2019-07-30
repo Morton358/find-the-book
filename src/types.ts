@@ -69,6 +69,16 @@ export interface SearchFailedAction {
   searchBookError: Error
 }
 
+export type BookCoversActionTypes =
+  | BookCoversAction
+  | BookCoversStartAction
+  | BookCoversSuccessAction
+  | BookCoversFailedAction
+export interface BookCoversAction {}
+export interface BookCoversStartAction {}
+export interface BookCoversSuccessAction {}
+export interface BookCoversFailedAction {}
+
 /////////////////////////////////////////////////////////////////////////////
 
 ///////////////////////////// Reducers /////////////////////////////////////
@@ -89,12 +99,8 @@ export interface BookCoversState {
 }
 
 export interface RootState {
-  entities: {
-    books: SearchBookState
-  }
-  ui: {
-    carousel: BookCoversState
-  }
+  books: SearchBookState
+  carousel: BookCoversState
 }
 ////////////////////////////////////////////////////////////////////////////
 
@@ -104,7 +110,9 @@ export type SearchBookProps = SearchBookDispatchProps & SearchBookStateProps & S
 interface SearchBookDispatchProps {
   onSearch: (searchQuery: string) => Dispatch<SearchAction>
 }
-interface SearchBookStateProps {}
+interface SearchBookStateProps {
+  countOfBooks: number
+}
 interface SearchBookOwnProps {}
 
 ///////////////////////////////////////////////////////////////////////////
