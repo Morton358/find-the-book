@@ -48,3 +48,12 @@ export const cloneObj = (obj: any): any => {
 
   throw new Error("Unable to copy obj! Its type isn't supported.")
 }
+
+export const isJson = (str: any) => {
+  try {
+    JSON.parse(str)
+  } catch (e) {
+    return false
+  }
+  return true
+}

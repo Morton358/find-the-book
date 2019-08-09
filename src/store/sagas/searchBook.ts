@@ -3,6 +3,7 @@ import { put } from 'redux-saga/effects'
 import * as actions from '../actions/index'
 import { searchApiAxios } from './../../share/axios-instance'
 import { SearchAction } from '../../types'
+import { isJson } from '../../share/utility';
 
 export function* searchBookSaga(action: SearchAction) {
   yield put(actions.searchStart())
@@ -17,11 +18,4 @@ export function* searchBookSaga(action: SearchAction) {
   }
 }
 
-function isJson(str: any) {
-  try {
-    JSON.parse(str)
-  } catch (e) {
-    return false
-  }
-  return true
-}
+

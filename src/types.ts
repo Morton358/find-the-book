@@ -79,6 +79,32 @@ export interface BookCoversStartAction {}
 export interface BookCoversSuccessAction {}
 export interface BookCoversFailedAction {}
 
+export type LoadImagesActionTypes =
+  | LoadImagesAction
+  | LoadImageSagaAction
+  | LoadImageStartAction
+  | LoadImageSuccessAction
+  | LoadImageFailedAction
+export interface LoadImagesAction {
+  type: typeof actionTypes.LOAD_IMAGES_INITIAL
+  arrOfIds: number[]
+}
+export interface LoadImageSagaAction {
+  type: typeof actionTypes.LOAD_IMAGE_SAGA
+  coverId: number
+}
+export interface LoadImageStartAction {
+  type: typeof actionTypes.LOAD_IMAGE_START
+}
+export interface LoadImageSuccessAction {
+  type: typeof actionTypes.LOAD_IMAGE_SUCCESS
+  coverId: number
+}
+export interface LoadImageFailedAction {
+  type: typeof actionTypes.LOAD_IMAGE_FAILED
+  loadImgErr: Error
+}
+
 /////////////////////////////////////////////////////////////////////////////
 
 ///////////////////////////// Reducers /////////////////////////////////////
@@ -93,6 +119,8 @@ export interface SearchBookState {
 
 export interface BookCoversState {
   ids: number[]
+  downloadedCoverIds: number[]
+  currentIndex: number
   error: Error | null
   errorOccured: boolean
   loading: boolean
@@ -114,5 +142,19 @@ interface SearchBookStateProps {
   countOfBooks: number
 }
 interface SearchBookOwnProps {}
+
+export type BookCoversProps = BookCoversDispatchProps & BookCoversStateProps & BookCoversOwnProps
+
+interface BookCoversDispatchProps {
+  onLoadImages: (arrOfIds: number[]) => Dispatch<LoadImagesAction>
+  onLoadImageSaga: (coverId: number) => Dispatch<LoadImageSagaAction>
+}
+interface BookCoversStateProps {
+  allIds: number[]
+  coverIds: number[]
+  downloadedCoverIds: number[]
+  currentIndex: number
+}
+interface BookCoversOwnProps {}
 
 ///////////////////////////////////////////////////////////////////////////
